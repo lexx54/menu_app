@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { Box, Flex, Grid } from '@chakra-ui/react'
-import { Button, Center, Badge } from '@chakra-ui/react'
-import useMenu from '../hooks/useMenu'
+import { Button, Center, Badge, Input } from '@chakra-ui/react'
 import { TMenu } from '../types/menu'
 import { AddIcon } from '@chakra-ui/icons'
-import { Link } from 'react-router-dom'
+import useData from '../hooks/useData'
 
 const Visualizer = () => {
+  const [searchWord, setSearchWord] = useState('')
   const [isDescription, setIsDescription] = useState({ open: false, id: 0 })
-  const { data, error, loading } = useMenu()
+  const { data, error, loading } = useData('menus')
 
   const handleItemClick = (id: number) => {
     if (isDescription.id === id) setIsDescription({ open: false, id: 0 })
@@ -26,53 +26,56 @@ const Visualizer = () => {
       Loading
     </Center>
   )
+
+  const filteredData = data?.filter((item: TMenu) => new RegExp(searchWord, 'gi').test(item.nombre))
   return (
     <Box>
       <Center>
-        <Button as={Link} to="/creation">
-          Add Menu
-        </Button>
+        <Input
+          value={searchWord}
+          onChange={(e) => setSearchWord(e.target.value)}
+          placeholder="Inserte nombre del menu que desea buscar"
+        />
       </Center>
       <Grid sx={templateMediaQuery} gap={6} mt={6}>
         <>
           {
-            data?.map((item: TMenu) => (
+            filteredData?.map((item: TMenu) => (
               <>
                 <Flex
                   {...itemStyle}
                   as="button"
-                  onClick={() => handleItemClick(item.id)}
+                  onClick={() => handleItemClick(Number(item.id))}
                   key={item.id}
-                  direction="column"
-                  align="center"
-                  position="relative"
+                  flexDirection="column"
+                  color={isDescription.id === item.id ? 'white' : 'black'}
+                  backgroundColor={isDescription.id === item.id ? 'blue.700' : 'blue.300'}
                 >
                   <Center color="black" fontWeight={700} m="1rem 0">
                     {item.nombre}
                   </Center>
-                  {
-                    (isDescription.open && isDescription.id === item.id) && (
-                      <>
-                        <Button position="absolute" top="1.5" left="1.5" size="xs">
-                          <AddIcon />
-                        </Button>
-                        <hr />
-                        <Box p="0 0.5rem" mb="1rem">
-                          {item.descripcion}
-                        </Box>
-                        <Badge fontStyle="italic">
-                          Cuenta con {item.platos.length} platos
-                        </Badge>
-                      </>
-                    )
-                  }
                 </Flex>
               </>
             ))
           }
         </>
       </Grid>
-    </Box>
+      {
+        isDescription.open && (
+          <Flex {...descriptionStyle} direction="column">
+            <Button position="absolute" top="1.5" left="1.5" size="xs">
+              <AddIcon />
+            </Button>
+            <Box p="0 0.5rem" mb="1rem">
+              {filteredData.find((item: TMenu) => item.id === isDescription.id).descripcion}
+            </Box>
+            <Badge fontStyle="italic" w="50%">
+              Cuenta con {filteredData.find((item: TMenu) => item.id === isDescription.id).platos.length} platos
+            </Badge>
+          </Flex>
+        )
+      }
+    </Box >
   )
 }
 
@@ -87,9 +90,24 @@ const templateMediaQuery = {
 
 const itemStyle = {
   borderRadius: ' 0 25px 0 25px',
-  backgroundColor: 'blue.300',
-  color: 'white',
   padding: '1rem 0',
+  align: "center"
+}
+
+const descriptionStyle = {
+  border: "2px solid gray",
+  borderRadius: '24px',
+  padding: '2rem 1rem',
+  margin: '1rem 0',
+}
+
+const descriptionMediaQuery = {
+  '@media screen and (max-width: 768px)': {
+    flexDirection: "repeat(3, 1fr)",
+  },
+  '@media screen and (min-width: 769px)': {
+    flexDirection: "repeat(5, 1fr)",
+  },
 }
 
 export default Visualizer
