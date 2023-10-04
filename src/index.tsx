@@ -8,7 +8,7 @@ import {
 import routes from './router';
 import Layout from './pages/Layout';
 
-// makes sure to convert the element into a FC component
+// makes sure to convert the element into a FC component and use the layout
 const router = createBrowserRouter(
   routes.map(route => ({ ...route, element: (<Layout children={<route.element />} />) }))
 )

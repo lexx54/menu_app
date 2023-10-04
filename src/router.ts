@@ -1,6 +1,6 @@
-import Creator from './pages/Creator'
-import Dashboard from './pages/Dashboard'
 import Visualizer from './pages/Visualizer'
+import Dashboard from './pages/Dashboard'
+import Creator from './pages/Creator'
 
 const routes: any[] = [
   {

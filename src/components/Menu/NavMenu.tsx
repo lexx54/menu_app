@@ -2,27 +2,34 @@ import React from 'react'
 import {
   Flex,
   Center,
-  Spacer
+  Spacer,
+  useBreakpointValue
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 const NavMenu = () => {
   return (
-    <Flex {...styles}>
+    <Flex {...mainStyles} sx={directionMediaQuery}>
       <Center>
         Logo
       </Center>
       <Spacer />
-      <Flex dir='row' flex="30% 0 0" justify="space-evenly" align="center">
-        <Link to="/">
-          Dashboard
-        </Link>
-        <Link to="/creation">
-          Create Menu
-        </Link>
-        <Link to="/visualizer">
-          Menu List
-        </Link>
+      <Flex {...subMenuStyles} sx={directionMediaQuery}>
+        <Center sx={linkMediaQuery}>
+          <Link to="/" >
+            Dashboard
+          </Link>
+        </Center>
+        <Center sx={linkMediaQuery}>
+          <Link to="/creation" >
+            Create Menu
+          </Link>
+        </Center>
+        <Center sx={linkMediaQuery}>
+          <Link to="/visualizer" >
+            Menu List
+          </Link>
+        </Center>
       </Flex>
     </Flex>
   )
@@ -30,10 +37,31 @@ const NavMenu = () => {
 
 export default NavMenu
 
-const styles = {
+const directionMediaQuery = {
+  '@media screen and (max-width: 768px)': {
+    flexDirection: 'column',
+  },
+  '@media screen and (min-width: 769px)': {
+    flexDirection: 'row',
+  },
+}
+
+const linkMediaQuery = {
+  '@media screen and (max-width: 768px)': {
+    marginTop: '1rem'
+  },
+}
+
+const mainStyles = {
   align: "center",
-  justif: "center",
+  justify: "center",
   p: "1rem 2rem",
   backgroundColor: "blue.300",
   color: "white"
+}
+
+const subMenuStyles = {
+  flex: "30% 0 0",
+  justify: "space-evenly",
+  align: "center"
 }
