@@ -794,23 +794,6 @@
           "porciones": 2
         }
       ]
-    },
-    {
-      "name": "Receta Lexx",
-      "description": "esta es una prueba",
-      "plates": [
-        {
-          "receta_id": 3,
-          "porciones": 3,
-          "id": "465f0ae6-3d4a-400b-a7af-f6674183bf3a"
-        },
-        {
-          "receta_id": 18,
-          "porciones": 1,
-          "id": "72091ba0-1fd0-469b-8efc-58a7f25674d4"
-        }
-      ],
-      "id": 21
     }
   ],
   "listas_de_compra": [

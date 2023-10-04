@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm, Controller, SubmitHandler, useFieldArray } from "react-hook-form"
 import { TCreatorValues } from '../types/creator'
-import { Input, Flex, Text, Button, Select, FormControl, FormLabel } from '@chakra-ui/react'
+import { Input, Flex, Text, Button, Select, FormControl, FormLabel, useToast } from '@chakra-ui/react'
 import { ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons"
 import useData from '../hooks/useData'
 import { TMenu } from '../types/menu'
@@ -13,6 +13,7 @@ const Creator = () => {
   const [state, setState] = useState<TCreatorState>('main')
   const { data, error, loading } = useData('recetas')
   const { handleAddData } = useData('menus')
+  const toast = useToast()
   const { control, handleSubmit, reset } = useForm<TCreatorValues>({
     defaultValues: {
       name: '',
@@ -34,6 +35,13 @@ const Creator = () => {
     }
     handleAddData(dataRefactor)
     reset()
+    toast({
+      title: 'Menu Creado',
+      description: "Tu menu a sido creado exitosamente.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
     console.log(data)
   }
 
