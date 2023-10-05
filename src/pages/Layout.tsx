@@ -12,7 +12,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
       <Box>
         {/* <NavMenu /> */}
         <Menu />
-        <Box p="2rem 1rem" bgImage={image} backgroundRepeat="no-repeat" backgroundSize="cover" height="100vh">
+        <Box p="2rem 1rem" bgImage={image} backgroundRepeat="no-repeat" backgroundSize="cover" minHeight="100vh">
           {children}
         </Box>
       </Box>
