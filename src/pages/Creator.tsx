@@ -42,7 +42,6 @@ const Creator = () => {
       duration: 3000,
       isClosable: true,
     })
-    console.log(data)
   }
 
   const filteredData = data?.filter((d: any) => !fields.find((field) => field.receta_id === d.id))

@@ -794,6 +794,21 @@
           "porciones": 2
         }
       ]
+    },
+    {
+      "nombre": "lexx edited",
+      "descripcion": "esto es para editar again",
+      "platos": [
+        {
+          "receta_id": 14,
+          "porciones": 1
+        },
+        {
+          "receta_id": 17,
+          "porciones": 2
+        }
+      ],
+      "id": 21
     }
   ],
   "listas_de_compra": [

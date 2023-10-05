@@ -4,6 +4,7 @@ import getData from '../services/getData';
 import postData from '../services/postData';
 import { TDataProps } from '../types/data';
 import deleteData from '../services/deleteData';
+import putData from '../services/putData';
 
 
 const useData = (type: string) => {
@@ -23,7 +24,6 @@ const useData = (type: string) => {
         setLoading(false);
       }
     }
-    console.log("fetchingggggg")
     fetchData()
   }, [toggleData])
 
@@ -37,13 +37,21 @@ const useData = (type: string) => {
       setLoading(false);
     }
   }
-  const handleEditData = async () => {
+  const handleEditData = async (data: TDataProps, id: number) => {
+    try {
+      const response = await putData(type, id, data);
 
+      if (response === 200) setToggleData(prev => !prev)
+    } catch (error: any) {
+
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
   }
   const handleDeleteData = async (id: number) => {
     try {
       const response = await deleteData(type, id);
-      console.log("response", response)
       if (response === 200) setToggleData(prev => !prev)
     } catch (error: any) {
       setError(error);
