@@ -30,7 +30,7 @@ const useData = (type: string) => {
   const handleAddData = async (data: TDataProps) => {
     try {
       const response: AxiosResponse = await postData(type, data);
-      setData(response);
+      setToggleData(prev => !prev)
     } catch (error: any) {
       setError(error);
     } finally {

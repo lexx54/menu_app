@@ -30,17 +30,19 @@ export function Menu() {
           <DrawerBody>
             <Center mt="2rem">
               <Link to="/" >
-                Dashboard
+                Principal
+
               </Link>
             </Center>
             <Center mt="2rem">
               <Link to="/creation" >
-                Create Menu
+                Crear Lista de compra
+
               </Link>
             </Center>
             <Center m="2rem">
               <Link to="/visualizer" >
-                Menu List
+                Lista de menus
               </Link>
             </Center>
             <hr />

@@ -5,11 +5,11 @@ import Creator from './pages/Creator'
 const routes: any[] = [
   {
     path: '/',
-    element: Dashboard,
+    element: Creator,
   },
   {
     path: '/creation',
-    element: Creator,
+    element: Dashboard,
   },
   {
     path: '/visualizer',

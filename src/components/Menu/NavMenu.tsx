@@ -17,17 +17,17 @@ const NavMenu = () => {
       <Flex {...subMenuStyles} sx={directionMediaQuery}>
         <Center sx={linkMediaQuery}>
           <Link to="/" >
-            Dashboard
+            Principal
           </Link>
         </Center>
         <Center sx={linkMediaQuery}>
           <Link to="/creation" >
-            Create Menu
+            Crear Lista de compra
           </Link>
         </Center>
         <Center sx={linkMediaQuery}>
           <Link to="/visualizer" >
-            Menu List
+            Lista de menus
           </Link>
         </Center>
       </Flex>
