@@ -30,6 +30,13 @@ const Visualizer = () => {
     </Center>
   )
 
+  const handlePagination = (direction: string) => {
+    setPagination((prev) => ({
+      start: direction === "back" ? prev.start - 5 : prev.start + 5,
+      end: direction === "back" ? prev.end - 5 : prev.end + 5,
+    }))
+  }
+
   const filteredData = data?.filter((item: TMenu) => new RegExp(searchWord, 'gi').test(item.nombre))
   return (
     <Box>
@@ -44,7 +51,10 @@ const Visualizer = () => {
         />
       </Center>
       <Flex align="center" justify="center" mt="2rem">
-        <Button size="xs">Mostrar menos</Button>
+        {
+          pagination.start > 0 && <Button size="xs" onClick={() => handlePagination('back')}>Mostrar menos</Button>
+        }
+
         <Badge mx="2rem">
           Actualmente mostrando
           {' '}
@@ -54,15 +64,16 @@ const Visualizer = () => {
           {' '}
           {pagination.end}
         </Badge>
-
-        <Button size="xs">Mostrar mas</Button>
+        {
+          pagination.end <= data.length && <Button size="xs" onClick={() => handlePagination('forward')}>Mostrar mas</Button>
+        }
       </Flex>
       <Grid sx={templateMediaQuery} gap={6} m="3rem 0">
         <>
 
           {
             filteredData
-              ?.slice(0, 10)
+              ?.slice(pagination.start, pagination.end)
               ?.map((item: TMenu) => (
                 <>
                   <Flex
